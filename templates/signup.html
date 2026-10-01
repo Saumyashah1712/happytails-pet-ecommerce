@@ -1,0 +1,93 @@
+{% extends 'master.html' %}
+
+{% block body %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Registration Form</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+
+<header>
+  <!-- Header content goes here -->
+</header>
+
+<div class="container my-5">
+    <h2 class="text-center mb-4">Registration Form</h2>
+    <form action="/signup/" method="POST" class="needs-validation" novalidate>
+        {% csrf_token %}
+
+        {% if error %}
+        <div class="alert alert-danger" role="alert">
+            {{error}}
+        </div>
+        {% endif %}
+        <div class="mb-3">
+            <label for="firstName" class="form-label">First Name</label>
+            <input type="text" class="form-control" id="firstName" name="firstName" value="{{values.firstName}}" maxlength="20" required>
+            <div class="invalid-feedback">Please enter your first name.</div>
+        </div>
+
+        <div class="mb-3">
+            <label for="lastName" class="form-label">Last Name</label>
+            <input type="text" class="form-control" id="lastName" name="lastName" value="{{values.lastName}}" maxlength="20" required>
+            <div class="invalid-feedback">Please enter your last name.</div>
+        </div>
+
+        <div class="mb-3">
+            <label for="email" class="form-label">Email Address</label>
+            <input type="email" class="form-control" id="email" name="email" value="{{values.email}}" maxlength="50" required>
+            <div class="invalid-feedback">Please enter a valid email address.</div>
+        </div>
+
+        <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input type="password" class="form-control" id="password" name="password" maxlength="20" required>
+            <div class="invalid-feedback">Please enter a password.</div>
+        </div>
+
+        <div class="mb-3">
+            <label for="mobilenumber" class="form-label">Mobile Number</label>
+            <input type="number" class="form-control" id="mobilenumber" name="mobilenumber" value="{{values.mobilenumber}}" maxlength="20" required>
+            <div class="invalid-feedback">Please Enter your Number.</div>
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100">Register</button>
+    </form>
+</div>
+
+<footer>
+  <!-- Footer content goes here -->
+</footer>
+
+<script>
+    (
+    function ()
+    {
+        'use strict'
+        const forms = document.querySelectorAll('.needs-validation')
+        Array.from(forms).forEach(form =>
+        {
+            form.addEventListener('submit', event =>
+            {
+                if (!form.checkValidity()
+    )
+                {
+                    event.preventDefault()
+                    event.stopPropagation()
+                }
+                form.classList.add('was-validated')
+            }, false)
+        })
+    }) ()
+</script>
+
+</body>
+
+</html>
+
+{% endblock %}

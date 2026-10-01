@@ -1,0 +1,37 @@
+{% extends 'master.html' %}
+{% block body %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Razorpay Payment</title>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+</head>
+<body>
+<center>
+    <h2>Pay ₹{{ amount }}</h2>
+    <button id="pay-btn">Pay Now</button>
+</center>
+    <script>
+        var options = {
+            "key": "{{ razorpay_key }}",
+            "amount": "{{ amount }}" * 100,  // Amount in paise
+            "currency": "INR",
+            "name": "Your Company",
+            "description": "Payment for Order",
+            "order_id": "{{ order_id }}",
+            "handler": function(response) {
+                alert('Payment Successful! Payment ID: ' + response.razorpay_payment_id);
+            },
+            "theme": {
+                "color": "#3399cc"
+            }
+        };
+        var rzp1 = new Razorpay(options);
+        document.getElementById("pay-btn").onclick = function(e) {
+            rzp1.open();
+            e.preventDefault();
+        };
+    </script>
+</body>
+</html>
+{% endblock %}
